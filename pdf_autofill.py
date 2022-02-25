@@ -22,11 +22,11 @@ if __name__ == '__main__':
         # Field names found by running and printing line 15
         # Key = pdf_field_name : Value = csv_field_value
         field_dictionary_1 = {"Last name": str(rows['LastName']),
-                            "Address Line 1": rows['AddressLine1'],
-                            "Address Line 2": rows['AddressLine2'],
-                            "Address Line 3": rows['AddressLine3'],
+                            "First name": rows['FirstName'],
+                            "Tax year": rows['TaxYear'],
+                            "Employer address": rows['EmployerAddress'],
                             "Post Code": rows['PostCode'],
-                            "Description of Shares": rows['DescriptionOfShares'],
+                            "Job title and brief description of duties": rows['JobTitleAndBriefDescriptionOfDuties'],
                             }
 
         temp_out_dir = os.path.normpath(os.path.join(pdfout,str(i) + 'out.pdf'))
