@@ -16,7 +16,7 @@ def set_need_appearances_writer(writer: PdfFileWriter):
     except Exception as e:
         print('set_need_appearances_writer() catch : ', repr(e))
         return writer
-    
+        
 if __name__ == '__main__':
     csv_filename = "autofill_data.csv"
     pdf_filename = "output.pdf"
