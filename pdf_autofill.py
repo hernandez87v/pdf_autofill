@@ -10,13 +10,13 @@ def set_need_appearances_writer(writer: PdfFileWriter):
             writer._root_object.update({
                 NameObject("/AcroForm"): IndirectObject(len(writer._objects), 0, writer)})
         need_appearances = NameObject("/NeedAppearances")
-        writer._root_object["/AcroForm"][need_appearances] = BooleanObject(True)
+        # writer._root_object["/AcroForm"][need_appearances] = BooleanObject(True)
         return writer
 
     except Exception as e:
         print('set_need_appearances_writer() catch : ', repr(e))
         return writer
-        
+
 if __name__ == '__main__':
     csv_filename = "autofill_data.csv"
     pdf_filename = "output.pdf"
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     pdfin = os.path.normpath(os.path.join(os.getcwd(),'in',pdf_filename))
     pdfout = os.path.normpath(os.path.join(os.getcwd(),'out'))
     data = pd.read_csv(csvin)
-    pdf = PdfFileReader(open(pdfin, "rb"))  
+    pdf = PdfFileReader(open(pdfin, "rb"), strict=False)  
     if "/AcroForm" in pdf.trailer["/Root"]:
         pdf.trailer["/Root"]["/AcroForm"].update(
             {NameObject("/NeedAppearances"): BooleanObject(True)})
@@ -45,13 +45,13 @@ if __name__ == '__main__':
         # Below you must define the field names as keys in this dictionary
         # Field names found by running and printing line 15
         # Key = pdf_field_name : Value = csv_field_value
-        field_dictionary_1 = {"Last name": str(rows['LastName']),
-                            "First name": rows['FirstName'],
-                            "Tax year": rows['TaxYear'],
-                            "Employer address": rows['EmployerAddress'],
-                            "Job title and brief description of duties": rows['JobTitleAndBriefDescriptionOfDuties'],
+        field_dictionary_1 = {"Last_Name_Fill": str(rows['Last_Name_Fill']),
+                            "First_Name_Fill": rows['First_Name_Fill'],
+                            "Tax_Year_Fill": rows['Tax_Year_Fill'],
+                            "Business_Address_Fill": rows['Business_Address_Fill'],
+                            "Job_Title_Fill": rows['Job_Title_Fill'],
                             }
-
+        print(field_dictionary_1)
         temp_out_dir = os.path.normpath(os.path.join(pdfout,str(i) + 'out.pdf'))
         pdf2.addPage(pdf.getPage(0))
         pdf2.updatePageFormFieldValues(pdf2.getPage(0), field_dictionary_1)
